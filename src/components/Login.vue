@@ -54,8 +54,10 @@ export default {
       this.$refs.loginFromRef.resetFields()
     },
     chickLoginFrom(){
-      this.$refs.loginFromRef.validate(valid=>{
-        console.log(valid)
+      this.$refs.loginFromRef.validate(async valid=>{
+        if(!valid) return;
+        const result =await this.$http.post('login',this.loginFrom);
+        console.log(result);
 
       })
     }
