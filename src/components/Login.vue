@@ -5,12 +5,13 @@
         <img src="../../public/avatar.jpg" alt="">
       </div>
       <el-form :rules="loginFromRules" :model="loginFrom" label-width="80px" class="login-from" ref="loginFromRef">
-        <el-form-item label="username" prop="username">
+        <el-form-item label="用户账号" prop="username">
           <el-input prefix-icon="iconfont icon-user" v-model="loginFrom.username" placeholder="请输入账号">
           </el-input>
         </el-form-item>
-        <el-form-item label="password" prop="password">
-          <el-input type="password" prefix-icon="iconfont icon-3702mima" v-model="loginFrom.password" placeholder="请输入密码" >
+        <el-form-item label="用户密码" prop="password">
+          <el-input type="password" prefix-icon="iconfont icon-3702mima" v-model="loginFrom.password"
+                    placeholder="请输入密码">
           </el-input>
         </el-form-item>
         <el-form-item class="btns">
@@ -29,8 +30,8 @@ export default {
   data() {
     return {
       loginFrom: {
-        username: '',
-        password: ''
+        username: 'admin',
+        password: '123456'
       },
       loginFromRules: {
         username: [
@@ -39,7 +40,7 @@ export default {
         ],
         password: [
           {required: true, message: '请输入密码名称', trigger: 'blur'},
-          {min: 8, max: 15, message: '长度在 8 到 15 个字符', trigger: 'blur'}
+          {min: 6, max: 15, message: '长度在 8 到 15 个字符', trigger: 'blur'}
         ],
 
       }
@@ -47,17 +48,22 @@ export default {
 
     }
   },
-  methods:{
-    resetLoginFrom(){
+  methods: {
+    resetLoginFrom() {
       // console.log(this);
 
-      this.$refs.loginFromRef.resetFields()
+      this.$refs.loginFromRef.resetFields()//elementui清除表单中所有内容
     },
-    chickLoginFrom(){
-      this.$refs.loginFromRef.validate(async valid=>{
-        if(!valid) return;
-        const result =await this.$http.post('login',this.loginFrom);
-        console.log(result);
+    chickLoginFrom() {
+      this.$refs.loginFromRef.validate(async valid => {
+        if (!valid) return;
+        const {data: res} = await this.$http.post('login', this.loginFrom);
+
+        if (res.meta.status !== 200) return this.$message.error('登录失败!')
+        this.$message.success('登录成功');
+        console.log(res);
+        window.sessionStorage.setItem("token", res.data.token);//记录token
+        this.$router.push('/home')
 
       })
     }
