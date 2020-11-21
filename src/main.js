@@ -9,6 +9,8 @@ import './assets/fonts/iconfont.css'
 import 'element-ui/lib/theme-chalk/index.css';
 import App from './App.vue'
 import axios from 'axios'
+import VueParticles from 'vue-particles'
+
 
 axios.defaults.baseURL = 'http://192.168.1.142:8888/api/private/v1/'
 axios.interceptors.request.use(config =>{
@@ -18,7 +20,7 @@ axios.interceptors.request.use(config =>{
 })
 Vue.prototype.$http = axios
 Vue.use(ElementUI);
-
+Vue.use(VueParticles)
 Vue.config.productionTip = false
 
 new Vue({

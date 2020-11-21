@@ -127,7 +127,7 @@ export default {
 
 
 .el-aside {
-  background-color: lightblue;
+  background-color: #185696;
 
   .el-menu {
     border-right: none;
@@ -135,7 +135,7 @@ export default {
 }
 
 .el-main {
-  background-color: #eaedf1;
+  background-color: #185696;
 
 
 }
@@ -145,7 +145,7 @@ export default {
 }
 
 .toggle-button {
-  background-color: #4A5064;
+  background-color: #b5c2ec;
   color: #ffffff;
   font-size: 10px;
   line-height: 24px;
